@@ -3,7 +3,7 @@ version: "3"
 services:
 
     php:
-        image: ${REGISTRY_URL}${REPOSITORY_NAME}php:${DOCKER_TAG}
+        image: ${REPOSITORY_NAME}php:${DOCKER_TAG}
         build:
             context: './../'
             dockerfile: 'docker/php/Dockerfile'
@@ -12,7 +12,7 @@ services:
             - "${JWT_PUBLIC_KEY_PATH}:/keys/jwt_public.pem:ro"
 
     front:
-        image: ${REGISTRY_URL}${REPOSITORY_NAME}front:${DOCKER_TAG}
+        image: ${REPOSITORY_NAME}front:${DOCKER_TAG}
         build: 'nginx'
         depends_on:
             - php

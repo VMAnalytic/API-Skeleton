@@ -1,4 +1,6 @@
 {
+    "name": "vmanalytic/symfony4-api-skeleton",
+    "description": "Symfony 4.1 API template project",
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -49,6 +51,10 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "start": [
+            "composer install --ignore-platform-reqs",
+            "docker-compose up -d"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
