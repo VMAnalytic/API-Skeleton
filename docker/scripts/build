@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+dir=$(dirname "${BASH_SOURCE[0]}")
+
+export COMPOSE_FILE=docker/docker-compose.yml:docker/docker-compose.prod.yml
+docker-compose build --force-rm
+
+# Check composer.json
+docker/shortcuts/composer validate --no-check-all --strict
+
+docker/shortcuts/composer install --ignore-platform-reqs --optimize-autoloader
+# Check security
+docker/shortcuts/php vendor/bin/security-checker -q security:check
+# Lint for YAML
+docker/shortcuts/php bin/console lint:yaml -q config/
+# PHP Code Sniffer
+docker/shortcuts/phpcs
+# Run PHP Static Analysis Tool
+docker/shortcuts/phpstan
+
+# Spooky bash hack for getting all images built by docker-compose
+images=$(docker-compose config | grep -o 'image:\s*registry.*' | cut -d" " -f2)
+for image in $images; do
+    echo "pushing image: $image"
+    docker push $image
+done
+
+#   OK "Running bin/wait_for_db"
+#	./support/shortcuts/php_container bin/wait_for_db
+#	[[ $? -ne 0 ]] && { WARNING "Something going wrong with doctrine:migrations:status or connection with elasticsearch clsuter" ;}

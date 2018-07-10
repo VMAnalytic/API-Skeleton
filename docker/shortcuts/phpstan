@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run -v $PWD:/app --rm phpstan/phpstan analyse -l 2 /app/src $@

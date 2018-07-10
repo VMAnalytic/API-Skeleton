@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+    database_test:
+        extends:
+            file: docker-compose.dev.yml
+            service: database
+        tmpfs:
+            - /var/lib/postgresql/data

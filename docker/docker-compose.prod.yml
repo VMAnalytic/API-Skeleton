@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+
+    front:
+        ports:
+            - 80:80
+            - 443:443
+
+        logging:
+            driver: syslog
+    php:
+        logging:
+            driver: syslog

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+mkdir -p ~/.composer
+COMPOSER_HOME=~/.composer
+
+docker run --rm \
+    --volume $PWD:/app \
+    --volume $COMPOSER_HOME:/composer \
+    --user $(id -u):$(id -g) \
+    composer $@

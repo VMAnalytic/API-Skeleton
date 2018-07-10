@@ -1,0 +1,13 @@
+#!/bin/bash
+
+while read -r file;
+do
+  file=${file:1}
+  file="$(echo -e "${file}" | tr -d '[[:space:]]')"
+  echo $file
+  if [[ $file = *.php ]];
+  then
+    docker/shortcuts/php vendor/bin/phpcbf --standard=./vendor/escapestudios/symfony2-coding-standard/Symfony "$file"
+    git add "$file"
+  fi
+done < <(git diff --cached --name-status --diff-filter=ACM)

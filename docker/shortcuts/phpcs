@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker-compose run --user $(id -u) -v $PWD:/app --no-deps --rm php \
+    vendor/bin/phpcs src/ -p -n -q --encoding=utf-8 --extensions=php --ignore=Tests --standard=./vendor/escapestudios/symfony2-coding-standard/Symfony
