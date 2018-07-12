@@ -86,6 +86,9 @@
     "doctrine/orm": {
         "version": "v2.6.1"
     },
+    "fesor/request-objects": {
+        "version": "v0.3.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -223,6 +226,15 @@
     },
     "sebastian/version": {
         "version": "2.0.1"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        }
     },
     "sensiolabs/security-checker": {
         "version": "4.0",
@@ -364,6 +376,9 @@
             "version": "3.3",
             "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
         }
+    },
+    "symfony/validator": {
+        "version": "v4.1.1"
     },
     "symfony/yaml": {
         "version": "v4.1.1"

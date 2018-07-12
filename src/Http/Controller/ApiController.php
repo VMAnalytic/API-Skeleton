@@ -2,10 +2,8 @@
 
 namespace App\Http\Controller;
 
+use App\Service\Fractal\ResponseFinalizer;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-//use FutureWorld\Domain\User\User;
-//use FutureWorld\Service\Fractal\Resource;
-//use FutureWorld\Service\Fractal\SymfonyFractalHelper;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
