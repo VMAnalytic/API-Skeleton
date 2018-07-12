@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Wait for database
+timeout 30 bash <<HEALTHCHECK
+    until curl $SYMFONY__DATABASE__HOST:$SYMFONY__DATABASE__PORT/ 2>&1 | grep '52'; do
+        sleep 1
+        echo "Retry to connect to database"
+    done
+HEALTHCHECK

@@ -1,0 +1,4 @@
+services:
+
+    App\Repository\User\UserRepository:
+        autowire: true

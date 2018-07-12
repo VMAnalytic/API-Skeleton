@@ -1,0 +1,7 @@
+default:
+    suites:
+        user:
+            paths:
+                - %paths.base%/features/User
+            contexts:
+                - Features\App\Context\User
