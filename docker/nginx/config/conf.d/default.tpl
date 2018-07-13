@@ -19,8 +19,8 @@ server {
     location ~* ^/(_profiler|_wdt|api)/.* {
         fastcgi_pass php:9000;
         include fastcgi_params;
-        fastcgi_param  SCRIPT_FILENAME    /app/app.php;
-        fastcgi_param  SCRIPT_NAME        app.php;
+        fastcgi_param  SCRIPT_FILENAME    /app/public/index.php;
+        fastcgi_param  SCRIPT_NAME        index.php;
     }
 
     location / {
