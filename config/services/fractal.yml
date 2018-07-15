@@ -1,0 +1,5 @@
+services:
+
+    App\Service\Fractal\FractalService:
+        autowire: true
+        public: true

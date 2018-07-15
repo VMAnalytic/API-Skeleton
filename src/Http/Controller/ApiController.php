@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Service\Fractal\FractalService;
 use App\Service\Fractal\ResponseFinalizer;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use League\Fractal\Resource\Collection;
@@ -11,20 +12,34 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class ApiController extends Controller
 {
-    protected function flushChanges()
+    /**
+     * @var FractalService
+     */
+    private $fractal;
+
+    /**
+     * ApiController constructor.
+     * @param FractalService $fractal
+     */
+    public function __construct(FractalService $fractal)
+    {
+        $this->fractal = $fractal;
+    }
+
+    protected function flushChanges():void
     {
         $this->get('doctrine.orm.default_entity_manager')->flush();
     }
 
-    protected function collection($data, $transformer, array $metadata = []): Resource
+    protected function collection($data, $transformer, array $metadata = [])
     {
-        return $this->get(Collection::class)->collection($data, $transformer, $metadata);
+        return $this->fractal->collection($data, $transformer, $metadata);
     }
 
     protected function item($data, $transformer, array $metadata = [])
     {
         return new ResponseFinalizer(
-            $this->get(Item::class)->item($data, $transformer, $metadata)
+            array_merge($this->get(FractalService::class)->item($data, $transformer), $metadata)
         );
     }
 

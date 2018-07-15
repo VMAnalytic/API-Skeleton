@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^1.9",
+        "fzaninotto/faker": "^1.8",
         "symfony/console": "^4.1",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.1",
@@ -55,7 +56,9 @@
     "scripts": {
         "start": [
             "composer install --ignore-platform-reqs",
-            "docker-compose up -d"
+            "docker-compose up -d",
+            "docker/shortcuts/console doctrine:migration:migrate -n --allow-no-migration",
+            "docker/shortcuts/console doctrine:fixtures:load -n"
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
