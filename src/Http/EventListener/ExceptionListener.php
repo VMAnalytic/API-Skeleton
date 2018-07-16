@@ -51,7 +51,7 @@ class ExceptionListener
         $this->route = $requestStack->getMasterRequest()->attributes->get('_route');
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event): void
     {
         $exception = $event->getException();
         // Customize your response object to display the exception details
@@ -59,9 +59,12 @@ class ExceptionListener
         $message = $this->translator->trans($exception->getMessage());
 
         if ($exception instanceof NotFoundHttpException) {
-            $code = $exception->getCode() ? $exception->getCode() : Response::HTTP_NOT_FOUND;
+            $code = $exception->getCode() ?: Response::HTTP_NOT_FOUND;
             $response->setStatusCode($code);
             $message = $this->translator->trans('Object not found');
+        } else {
+            $code = $exception->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR;
+            $response->setStatusCode($code);
         }
 
         $data = [

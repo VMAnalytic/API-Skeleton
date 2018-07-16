@@ -17,10 +17,13 @@ class UserController extends ApiController
     /**
      * @Config\Route("")
      * @Config\Method("GET")
+     * @param UserRepository $repository
+     * @param UserTransformer $transformer
+     * @return JsonResponse
      */
-    public function testUser()
+    public function getListAction(UserRepository $repository, UserTransformer $transformer): JsonResponse
     {
-        return new JsonResponse('User'); //TODO testing
+        return $this->collection($repository->findAll(), $transformer)->asResponse(Response::HTTP_OK);
     }
 
     /**
@@ -31,7 +34,7 @@ class UserController extends ApiController
      * @param UserTransformer $transformer
      * @return JsonResponse
      */
-    public function viewAction(User $user, UserTransformer $transformer)
+    public function viewAction(User $user, UserTransformer $transformer): JsonResponse
     {
         return $this->item($user, $transformer)->asResponse(Response::HTTP_OK);
     }
@@ -44,7 +47,7 @@ class UserController extends ApiController
      * @param UserRepository $repository
      * @return JsonResponse
      */
-    public function deleteAction(User $user, UserRepository $repository)
+    public function deleteAction(User $user, UserRepository $repository): JsonResponse
     {
         $repository->remove($user);
         $this->flushChanges();

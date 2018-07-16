@@ -5,8 +5,6 @@ namespace App\Http\Controller;
 use App\Service\Fractal\FractalService;
 use App\Service\Fractal\ResponseFinalizer;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use League\Fractal\Resource\Collection;
-use League\Fractal\Resource\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -31,19 +29,27 @@ abstract class ApiController extends Controller
         $this->get('doctrine.orm.default_entity_manager')->flush();
     }
 
-    protected function collection($data, $transformer, array $metadata = [])
+    protected function collection($data, $transformer, array $metadata = []): ResponseFinalizer
     {
-        return $this->fractal->collection($data, $transformer, $metadata);
-    }
+        $data = $this->fractal->collection($data, $transformer);
 
-    protected function item($data, $transformer, array $metadata = [])
-    {
+        if (isset($data['meta'])) {
+            $data['meta'] = array_merge($data['meta'], $metadata);
+        }
+
         return new ResponseFinalizer(
-            array_merge($this->get(FractalService::class)->item($data, $transformer), $metadata)
+            $data
         );
     }
 
-    protected function resource($data, $transformer, array $metadata = []): Resource
+    protected function item($data, $transformer, array $metadata = []): ResponseFinalizer
+    {
+        return new ResponseFinalizer(
+            array_merge($this->fractal->item($data, $transformer), $metadata)
+        );
+    }
+
+    protected function resource($data, $transformer, array $metadata = []): ResponseFinalizer
     {
         if (\is_array($data) || $data instanceof Paginator) {
             return $this->collection($data, $transformer, $metadata);

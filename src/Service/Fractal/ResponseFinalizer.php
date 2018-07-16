@@ -18,6 +18,10 @@ class ResponseFinalizer
         $this->body = $body;
     }
 
+    /**
+     * @param callable $fn
+     * @return $this
+     */
     public function using(callable $fn)
     {
         $this->body = $fn($this->body);
@@ -25,7 +29,12 @@ class ResponseFinalizer
         return $this;
     }
 
-    public function asResponse($statusCode = 200, array $headers = [])
+    /**
+     * @param int $statusCode
+     * @param array $headers
+     * @return JsonResponse
+     */
+    public function asResponse(int $statusCode = 200, array $headers = []): JsonResponse
     {
         return new JsonResponse($this->body, $statusCode, $headers);
     }

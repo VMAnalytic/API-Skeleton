@@ -2,7 +2,6 @@
 
 namespace App\Service\Fractal;
 
-use App\Domain\Entity\Pagination;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use League\Fractal\Pagination\PaginatorInterface;
 

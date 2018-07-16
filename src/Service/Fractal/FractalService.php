@@ -2,7 +2,6 @@
 
 namespace App\Service\Fractal;
 
-use App\Domain\Entity\Pagination;
 use ArrayIterator;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use League\Fractal\Manager as FractalManager;

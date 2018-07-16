@@ -58,9 +58,9 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
                 return md5($raw);
             }
 
-            public function isPasswordValid($encoded, $raw, $salt)
+            public function isPasswordValid($encoded, $raw, $salt): bool
             {
-                return $encoded = md5($raw);
+                return $encoded === md5($raw);
             }
         };
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Entity;
+namespace App\Service\Fractal;
 
 class Pagination
 {
